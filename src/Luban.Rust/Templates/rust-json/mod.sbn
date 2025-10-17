@@ -88,10 +88,10 @@ impl {{bean.name}} {
         {{~if field.comment != '' ~}}
             ///Get field {{escape_comment field.comment}}
         {{~end~}}
-        pub fn get_{{field.name}}(&self)-> {{declaring_type_name field.ctype}}{
+        pub fn get_{{field.name}}(&self)-> &{{declaring_type_name field.ctype}}{
             match self {
                 {{~for child in bean.hierarchy_not_abstract_children~}}
-                    {{bean.name}}::{{impl_data_type child bean}}(bean) => bean.{{field.name}},
+                    {{bean.name}}::{{impl_data_type child bean}}(bean) => bean.get_{{field.name}}(),
                 {{~end~}}
                 
             }
